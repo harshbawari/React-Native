@@ -3,14 +3,17 @@ import { View, Text, Platform } from 'react-native';
 import Menu from './MenuComponent';
 import Home from './HomeComponent';
 import DishDetail from './DishDetailComponent';
+import About from './AboutComponent';
+import Contact from './ContactComponent';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { exp } from 'react-native-reanimated';
 
 const MenuNavigator = createStackNavigator();
 const HomeNavigator = createStackNavigator();
 const MainNavigator = createDrawerNavigator();
+const ContactNavigator = createStackNavigator();
+const AboutNavigator = createStackNavigator();
 
 function HomeScreen() {
     return (
@@ -32,6 +35,49 @@ function HomeScreen() {
         </HomeNavigator.Navigator>
     );
 }
+
+function AboutScreen() {
+    return (
+        <AboutNavigator.Navigator>
+            <AboutNavigator.Screen
+                name="AboutUs"
+                component={About}
+                options={{
+                    title: "About",
+                    headerStyle: {
+                        backgroundColor: '#512DAB'
+                    },
+                    headerTitleStyle: {
+                        color: '#fff'
+                    },
+                    headerTintColor: '#fff'
+                }}
+            />
+        </AboutNavigator.Navigator>
+    );
+}
+
+function ContactScreen() {
+    return (
+        <ContactNavigator.Navigator>
+            <ContactNavigator.Screen
+                name="ContactUs"
+                component={Contact}
+                options={{
+                    title: "Contact Us",
+                    headerStyle: {
+                        backgroundColor: '#512DAB'
+                    },
+                    headerTitleStyle: {
+                        color: '#fff'
+                    },
+                    headerTintColor: '#fff'
+                }}
+            />
+        </ContactNavigator.Navigator>
+    );
+}
+
 
 function MenuScreen() {
     return (
@@ -80,7 +126,9 @@ class Main extends Component {
                         }}
                     >
                         <MainNavigator.Screen name="Home" component={HomeScreen} />
+                        <MainNavigator.Screen name="AboutUs" component={AboutScreen} />
                         <MainNavigator.Screen name="Menu" component={MenuScreen} />
+                        <MainNavigator.Screen name="ContactUs" component={ContactScreen} />
                     </MainNavigator.Navigator>
                 </NavigationContainer>
             </View >
