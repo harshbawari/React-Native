@@ -29,7 +29,7 @@ class DishDetail extends Component {
 
         this.state = {
             dishes: DISHES
-        }
+        };
     }
 
     static navigationOptions = {
@@ -37,11 +37,13 @@ class DishDetail extends Component {
     };
 
     render() {
-        const dishId = this.props.navigation.getParam('dishId', '');
+        const dishId = this.props.route.params.dishId;
 
 
         return (
-            <RenderDish dish={this.state.dishes[+dishId]} />
+            <View style={{ flex: 1 }}>
+                <RenderDish dish={this.state.dishes.filter((dish) => dish.id === dishId)[0]} />
+            </View>
         );
     }
 }
