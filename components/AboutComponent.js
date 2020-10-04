@@ -41,7 +41,11 @@ export default class About extends Component {
         return (
             <ScrollView>
                 <RenderHistory />
-                {renderLeaders}
+                <Card>
+                    <Card.Title>Corporate Leadership</Card.Title>
+                    <Card.Divider />
+                    {renderLeaders}
+                </Card>
             </ScrollView>
         );
     }
