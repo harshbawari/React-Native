@@ -12,6 +12,7 @@ import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 import { fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
+import Reservation from './ReservationComponent';
 
 const mapStateToProps = state => {
     return {
@@ -48,7 +49,34 @@ const MenuNavigator = createStackNavigator();
 const HomeNavigator = createStackNavigator();
 const MainNavigator = createDrawerNavigator();
 const ContactNavigator = createStackNavigator();
+const ReservationNavigator = createStackNavigator();
 const AboutNavigator = createStackNavigator();
+
+function ReservationScreen({ navigation }) {
+    return (
+        <ReservationNavigator.Navigator>
+            <ReservationNavigator.Screen
+                name="Reservation"
+                component={Reservation}
+                options={{
+                    title: "Reservation",
+                    drawerLabel: 'Reservation',
+                    drawerIcon: ({ tintColor }) => {
+                        <Icon name='cutlery' type='font-awesome' size={24} color={tintColor} />
+                    },
+                    headerStyle: {
+                        backgroundColor: '#512DAB'
+                    },
+                    headerTitleStyle: {
+                        color: '#fff'
+                    },
+                    headerTintColor: '#fff',
+                    headerLeft: () => <Icon name='menu' size={24} color='white' onPress={() => navigation.toggleDrawer()} />
+                }}
+            />
+        </ReservationNavigator.Navigator>
+    );
+}
 
 function HomeScreen({ navigation }) {
     return (
@@ -191,6 +219,7 @@ class Main extends Component {
                         <MainNavigator.Screen name="AboutUs" component={AboutScreen} />
                         <MainNavigator.Screen name="Menu" component={MenuScreen} />
                         <MainNavigator.Screen name="ContactUs" component={ContactScreen} />
+                        <MainNavigator.Screen name="Reserve Table" component={ReservationScreen} />
                     </MainNavigator.Navigator>
                 </NavigationContainer>
             </View >
