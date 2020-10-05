@@ -3,6 +3,7 @@ import { ScrollView, View, Text } from 'react-native';
 import { Card, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
+import Loading from './LoadingComponent';
 
 const mapStateToProps = state => {
     return {
@@ -37,16 +38,43 @@ class About extends Component {
             );
         });
 
-        return (
-            <ScrollView>
-                <RenderHistory />
-                <Card>
-                    <Card.Title>Corporate Leadership</Card.Title>
-                    <Card.Divider />
-                    {renderLeaders}
-                </Card>
-            </ScrollView>
-        );
+        if (this.props.leaders.isLoading) {
+            return (
+                <ScrollView>
+                    <RenderHistory />
+                    <Card>
+                        <Card.Title>Corporate Leadership</Card.Title>
+                        <Card.Divider />
+                        <Loading />
+                    </Card>
+                </ScrollView>
+            );
+        }
+        else if (this.props.leaders.errMess) {
+            return (
+                <ScrollView>
+                    <RenderHistory />
+                    <Card>
+                        <Card.Title>Corporate Leadership</Card.Title>
+                        <Card.Divider />
+                        <Text>{this.props.leaders.errMess}</Text>
+                    </Card>
+                </ScrollView>
+            );
+        }
+        else {
+            return (
+                <ScrollView>
+                    <RenderHistory />
+                    <Card>
+                        <Card.Title>Corporate Leadership</Card.Title>
+                        <Card.Divider />
+                        {renderLeaders}
+                    </Card>
+                </ScrollView>
+            );
+        }
+
     }
 }
 
