@@ -7,6 +7,7 @@ import { postFavorite } from '../redux/ActionCreators';
 import { postComments } from '../redux/ActionCreators';
 import { ScreenStackHeaderBackButtonImage } from 'react-native-screens';
 import { comments } from '../redux/comments';
+import * as Animatable from 'react-native-animatable';
 
 const mapStateToProps = state => {
     return {
@@ -46,68 +47,70 @@ function RenderDish(props) {
 
     if (dish != null) {
         return (
-            <Card
-                featuredTitle={dish.name}
-                image={{ uri: baseUrl + dish.image }}
-            >
-                <Text style={{ margin: 10 }}>
-                    {dish.description}
-                </Text>
-                <View style={{
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexDirection: 'row'
-                }}>
-                    <Icon
-                        raised
-                        reverse
-                        name={props.favorite ? 'heart' : 'heart-o'}
-                        type='font-awesome'
-                        color='#f50'
-                        onPress={() => props.favorite ? console.log('Already favorite') : props.onPress()}
-                    />
-                    <Icon
-                        raised
-                        name={'edit'}
-                        type='font-awesome'
-                        color='blue'
-                        onPress={() => toggleShowModal(true)}
-                    />
-                    <Modal
-                        animationType={"slide"}
-                        transparent={false}
-                        visible={showModal}
-                        onDismiss={() => toggleShowModal(false)}
-                        onRequestClose={() => toggleShowModal(false)}
-                    >
-                        <Rating
-                            showRating
-                            defaultRating={2.5}
-                            onFinishRating={(value) => setRating(value)}
+            <Animatable.View animation="fadeInDown" delay={1000} duration={2000}>
+                <Card
+                    featuredTitle={dish.name}
+                    image={{ uri: baseUrl + dish.image }}
+                >
+                    <Text style={{ margin: 10 }}>
+                        {dish.description}
+                    </Text>
+                    <View style={{
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexDirection: 'row'
+                    }}>
+                        <Icon
+                            raised
+                            reverse
+                            name={props.favorite ? 'heart' : 'heart-o'}
+                            type='font-awesome'
+                            color='#f50'
+                            onPress={() => props.favorite ? console.log('Already favorite') : props.onPress()}
                         />
-                        <Input
-                            placeholder="Author"
-                            onChangeText={(value) => setAuthor(value)}
-                            leftIcon={{ type: 'font-awesome', name: 'user' }}
+                        <Icon
+                            raised
+                            name={'edit'}
+                            type='font-awesome'
+                            color='blue'
+                            onPress={() => toggleShowModal(true)}
                         />
-                        <Input
-                            placeholder="Enter your comment here"
-                            onChangeText={(value) => setComment(value)}
-                            leftIcon={{ type: 'font-awesome', name: 'comment' }}
-                        />
-                        <Button
-                            title="Submit"
-                            color='#512DAB'
-                            onPress={() => submitComment(props)}
-                        />
-                        <Button
-                            title='Cancel'
-                            color='gray'
-                            onPress={() => toggleShowModal(false)}
-                        />
-                    </Modal>
-                </View>
-            </Card>
+                        <Modal
+                            animationType={"slide"}
+                            transparent={false}
+                            visible={showModal}
+                            onDismiss={() => toggleShowModal(false)}
+                            onRequestClose={() => toggleShowModal(false)}
+                        >
+                            <Rating
+                                showRating
+                                defaultRating={2.5}
+                                onFinishRating={(value) => setRating(value)}
+                            />
+                            <Input
+                                placeholder="Author"
+                                onChangeText={(value) => setAuthor(value)}
+                                leftIcon={{ type: 'font-awesome', name: 'user' }}
+                            />
+                            <Input
+                                placeholder="Enter your comment here"
+                                onChangeText={(value) => setComment(value)}
+                                leftIcon={{ type: 'font-awesome', name: 'comment' }}
+                            />
+                            <Button
+                                title="Submit"
+                                color='#512DAB'
+                                onPress={() => submitComment(props)}
+                            />
+                            <Button
+                                title='Cancel'
+                                color='gray'
+                                onPress={() => toggleShowModal(false)}
+                            />
+                        </Modal>
+                    </View>
+                </Card>
+            </Animatable.View>
         );
     }
     else {
@@ -167,14 +170,17 @@ function RenderComments(props) {
     }
 
     return (
-        <Card>
-            <Card.Title>Comments</Card.Title>
-            <FlatList
-                data={comments}
-                renderItem={renderCommentItem}
-                keyExtractor={item => item.id.toString()}
-            />
-        </Card>
+        <Animatable.View animation="fadeInUp" delay={1000} duration={2000}>
+            <Card>
+                <Card.Title>Comments</Card.Title>
+                <FlatList
+                    data={comments}
+                    renderItem={renderCommentItem}
+                    keyExtractor={item => item.id.toString()}
+                />
+            </Card>
+        </Animatable.View>
+
     );
 }
 
