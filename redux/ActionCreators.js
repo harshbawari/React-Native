@@ -22,6 +22,19 @@ export const fetchComments = () => (dispatch) => {
         .catch(error => dispatch(commentsFailed(error.mesaage)));
 }
 
+export const postComments = (dishId, author, comment, rating) => (dispatch) => {
+    const _comment = {
+        dishId: dishId,
+        rating: rating,
+        comment: comment,
+        author: author,
+        date: new Date()
+    };
+    setTimeout(() => {
+        dispatch(addComments(_comment));
+    }, 2000);
+};
+
 export const commentsFailed = (errmess) => ({
     type: ActionTypes.COMMENTS_FAILED,
     payload: errmess
@@ -153,3 +166,4 @@ export const addFavorite = (dishId) => ({
     type: ActionTypes.ADD_FAVORITE,
     payload: dishId
 })
+

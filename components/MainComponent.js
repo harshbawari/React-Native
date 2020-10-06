@@ -5,6 +5,7 @@ import Home from './HomeComponent';
 import DishDetail from './DishDetailComponent';
 import About from './AboutComponent';
 import Contact from './ContactComponent';
+import Favorites from './FavoriteComponent';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer';
@@ -49,6 +50,7 @@ const MenuNavigator = createStackNavigator();
 const HomeNavigator = createStackNavigator();
 const MainNavigator = createDrawerNavigator();
 const ContactNavigator = createStackNavigator();
+const FavoritesNavigator = createStackNavigator();
 const ReservationNavigator = createStackNavigator();
 const AboutNavigator = createStackNavigator();
 
@@ -75,6 +77,32 @@ function ReservationScreen({ navigation }) {
                 }}
             />
         </ReservationNavigator.Navigator>
+    );
+}
+
+function FavoritesScreen({ navigation }) {
+    return (
+        <FavoritesNavigator.Navigator>
+            <FavoritesNavigator.Screen
+                name="Favorites"
+                component={Favorites}
+                options={{
+                    title: "Favorites",
+                    drawerLabel: 'Favorites',
+                    drawerIcon: ({ tintColor }) => {
+                        <Icon name='heart' type='font-awesome' size={24} color={tintColor} />
+                    },
+                    headerStyle: {
+                        backgroundColor: '#512DAB'
+                    },
+                    headerTitleStyle: {
+                        color: '#fff'
+                    },
+                    headerTintColor: '#fff',
+                    headerLeft: () => <Icon name='menu' size={24} color='white' onPress={() => navigation.toggleDrawer()} />
+                }}
+            />
+        </FavoritesNavigator.Navigator>
     );
 }
 
@@ -219,6 +247,7 @@ class Main extends Component {
                         <MainNavigator.Screen name="AboutUs" component={AboutScreen} />
                         <MainNavigator.Screen name="Menu" component={MenuScreen} />
                         <MainNavigator.Screen name="ContactUs" component={ContactScreen} />
+                        <MainNavigator.Screen name="Favorites" component={FavoritesScreen} />
                         <MainNavigator.Screen name="Reserve Table" component={ReservationScreen} />
                     </MainNavigator.Navigator>
                 </NavigationContainer>
