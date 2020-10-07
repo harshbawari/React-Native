@@ -6,6 +6,7 @@ import DishDetail from './DishDetailComponent';
 import About from './AboutComponent';
 import Contact from './ContactComponent';
 import Favorites from './FavoriteComponent';
+import Login from './LoginComponent';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer';
@@ -53,6 +54,34 @@ const ContactNavigator = createStackNavigator();
 const FavoritesNavigator = createStackNavigator();
 const ReservationNavigator = createStackNavigator();
 const AboutNavigator = createStackNavigator();
+const LoginNavigator = createStackNavigator();
+
+function LoginScreen({ navigation }) {
+    return (
+        <LoginNavigator.Navigator>
+            <LoginNavigator.Screen
+                name="Login"
+                component={Login}
+                options={{
+                    title: "Login",
+                    drawerLabel: 'Login',
+                    drawerIcon: ({ tintColor }) => {
+                        <Icon name='sign-in' type='font-awesome' size={24} color={tintColor} />
+                    },
+                    headerStyle: {
+                        backgroundColor: '#512DAB'
+                    },
+                    headerTitleStyle: {
+                        color: '#fff'
+                    },
+                    headerTintColor: '#fff',
+                    headerLeft: () => <Icon name='menu' size={24} color='white' onPress={() => navigation.toggleDrawer()} />
+                }}
+            />
+        </LoginNavigator.Navigator>
+    );
+}
+
 
 function ReservationScreen({ navigation }) {
     return (
@@ -242,7 +271,9 @@ class Main extends Component {
                             backgroundColor: '#D1C4E9'
                         }}
                         drawerContent={(props) => <CustomDrawerContentComponent {...props} />}
+                        initialRouteName='Home'
                     >
+                        <MainNavigator.Screen name="Login" component={LoginScreen} />
                         <MainNavigator.Screen name="Home" component={HomeScreen} />
                         <MainNavigator.Screen name="AboutUs" component={AboutScreen} />
                         <MainNavigator.Screen name="Menu" component={MenuScreen} />
